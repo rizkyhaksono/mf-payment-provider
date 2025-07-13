@@ -2,10 +2,43 @@
   "name": "mf-payment-provider",
   "private": true,
   "version": "1.0.0",
+  "description": "Payment processing microfrontend providing payment components and services for e-commerce applications",
+  "author": {
+    "name": "Rizky Haksono",
+    "email": "mrizkyhaksono@gmail.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rizkyhaksono/mf-ecommerce",
+    "directory": "mf-payment-provider"
+  },
+  "keywords": [
+    "payment",
+    "ecommerce",
+    "microfrontend",
+    "module-federation",
+    "react",
+    "typescript",
+    "rsbuild"
+  ],
+  "main": "dist/remoteEntry.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "metadata.json",
+    "module-federation.config.ts",
+    "rsbuild.config.ts",
+    "tsconfig.json"
+  ],
   "scripts": {
     "dev": "rsbuild dev --open",
     "build": "rsbuild build",
-    "preview": "rsbuild preview"
+    "preview": "rsbuild preview",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src --ext .ts,.tsx",
+    "clean": "rimraf dist"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -17,6 +50,28 @@
     "@types/react": "^18.3.11",
     "@types/react-dom": "~18.3.1",
     "typescript": "^5.7.2",
-    "@module-federation/rsbuild-plugin":"^0.16.0"
+    "@module-federation/rsbuild-plugin": "^0.16.0"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "bun": ">=1.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "federation": {
+    "name": "mfPaymentProvider",
+    "port": 3001,
+    "exposes": {
+      "./PaymentComponent": "./src/components/ProviderComponent.tsx",
+      "./PaymentButton": "./src/components/PaymentButton.tsx"
+    },
+    "shared": ["react", "react-dom"]
   }
 }

@@ -1,0 +1,135 @@
+{
+  "name": "Payment Provider",
+  "technicalName": "mfPaymentProvider",
+  "version": "1.0.0",
+  "description": "Payment processing microfrontend providing payment components and services for e-commerce applications",
+  "author": {
+    "name": "Rizky Haksono",
+    "email": "mrizkyhaksono@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rizkyhaksono/mf-ecommerce"
+  },
+  "license": "MIT",
+  "keywords": ["payment", "ecommerce", "microfrontend", "react", "module-federation"],
+  "capabilities": [
+    "payment-processing",
+    "payment-forms",
+    "transaction-handling",
+    "payment-methods",
+    "payment-validation"
+  ],
+  "exposedModules": {
+    "./PaymentComponent": {
+      "name": "PaymentComponent",
+      "description": "Main payment provider component with Module Federation branding",
+      "type": "React.FC",
+      "category": "component",
+      "dependencies": ["react"],
+      "props": {},
+      "examples": [
+        {
+          "title": "Basic Usage",
+          "code": "import PaymentComponent from 'paymentProvider/PaymentComponent';\n\n<PaymentComponent />"
+        }
+      ]
+    },
+    "./PaymentButton": {
+      "name": "PaymentButton",
+      "description": "Reusable payment button with amount, currency and callback support",
+      "type": "React.FC<PaymentButtonProps>",
+      "category": "component",
+      "dependencies": ["react"],
+      "props": {
+        "amount": {
+          "type": "number",
+          "required": true,
+          "description": "Payment amount to be processed"
+        },
+        "currency": {
+          "type": "string",
+          "required": false,
+          "default": "USD",
+          "description": "Payment currency (ISO 4217 code)"
+        },
+        "onPayment": {
+          "type": "(amount: number) => void",
+          "required": false,
+          "description": "Callback function triggered when payment is processed"
+        }
+      },
+      "examples": [
+        {
+          "title": "Basic Payment Button",
+          "code": "import PaymentButton from 'paymentProvider/PaymentButton';\n\n<PaymentButton amount={99.99} currency=\"USD\" onPayment={(amount) => console.log(`Paid: $${amount}`)} />"
+        },
+        {
+          "title": "Simple Payment Button",
+          "code": "<PaymentButton amount={49.99} />"
+        }
+      ]
+    }
+  },
+  "runtime": {
+    "framework": "React",
+    "version": "^18.0.0",
+    "bundler": "Rsbuild",
+    "typescript": true,
+    "port": 3001,
+    "endpoint": "http://localhost:3001",
+    "manifestUrl": "http://localhost:3001/mf-manifest.json"
+  },
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "federation": {
+    "name": "mfPaymentProvider",
+    "filename": "remoteEntry.js",
+    "shared": {
+      "react": {
+        "singleton": true,
+        "requiredVersion": "^18.0.0"
+      },
+      "react-dom": {
+        "singleton": true,
+        "requiredVersion": "^18.0.0"
+      }
+    }
+  },
+  "api": {
+    "endpoints": [
+      {
+        "path": "/mf-manifest.json",
+        "method": "GET",
+        "description": "Module Federation manifest"
+      },
+      {
+        "path": "/remoteEntry.js",
+        "method": "GET",
+        "description": "Module Federation remote entry point"
+      }
+    ]
+  },
+  "health": {
+    "healthCheck": "/",
+    "status": "active",
+    "lastUpdated": "2025-07-13T00:00:00.000Z"
+  },
+  "deployment": {
+    "environment": "development",
+    "buildTime": "2025-07-13T00:00:00.000Z",
+    "nodeVersion": "v20.x.x",
+    "platform": "win32"
+  },
+  "documentation": {
+    "readme": "./README.md",
+    "changelog": "./CHANGELOG.md",
+    "apiDocs": "./docs/api.md"
+  }
+}

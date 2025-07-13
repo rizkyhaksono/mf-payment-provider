@@ -1,12 +1,21 @@
 import { createModuleFederationConfig } from '@module-federation/rsbuild-plugin';
 
 export default createModuleFederationConfig({
-  name: 'mf-payment-provider',
+  name: 'mfPaymentProvider',
+  filename: 'remoteEntry.js',
   exposes: {
-    '.': './src/components/ProviderComponent.tsx',
+    './PaymentComponent': './src/components/ProviderComponent.tsx',
+    './PaymentButton': './src/components/PaymentButton.tsx',
   },
   shared: {
-    react: { singleton: true },
-    'react-dom': { singleton: true },
+    react: {
+      singleton: true,
+      requiredVersion: '^18.0.0'
+    },
+    'react-dom': {
+      singleton: true,
+      requiredVersion: '^18.0.0'
+    },
   },
+  dts: false,
 });
