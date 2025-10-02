@@ -4,8 +4,10 @@ export default createModuleFederationConfig({
   name: 'mfPaymentProvider',
   filename: 'remoteEntry.js',
   exposes: {
-    './PaymentComponent': './src/components/ProviderComponent.tsx',
+    './ShoppingCart': './src/components/ShoppingCart.tsx',
+    './CheckoutForm': './src/components/CheckoutForm.tsx',
     './PaymentButton': './src/components/PaymentButton.tsx',
+    './types': './src/types/payment.ts',
   },
   shared: {
     react: {
